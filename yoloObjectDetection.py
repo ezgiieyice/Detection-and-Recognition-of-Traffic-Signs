@@ -6,7 +6,7 @@ import glob
 import random
 import pandas as pd
 
-# Load Yolo model eğittim
+# Load Yolo model 
 net = cv2.dnn.readNet("yolov3_training_last.weights", "yolov3_testing.cfg")
 
 # Name custom object
@@ -30,7 +30,7 @@ for img_path in images_path:
     img = cv2.resize(img, None, fx=0.4, fy=0.4)
     height, width, channels = img.shape
 
-    # Detecting objects using 416x416 modelini kullanarak
+    # Detecting objects using 416x416 model 
     blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
 
     net.setInput(blob)
@@ -74,38 +74,32 @@ for img_path in images_path:
             color = colors[class_ids[i]]
             cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
 
-            # CONVERTİNG OF THE LOCALIZATED REGION TO GRAYSCALE TO USE IN TRAINED MODEL
+            # CONVERTİNG OF THE LOCALIZATED REGION TO GRAYSCALE FOR USING IN TRAINED MODEL
             roi = img[y:y+h,x:x+w]
             gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
             gray_roi = cv2.resize(gray_roi, (32, 32))
-            gray_roi = gray_roi / 255.0
+#             gray_roi = gray_roi / 255.0
+            
+            gray_roi = cv2.equalizeHist(gray_roi)
 
-            print(type(roi))
+#             print(type(roi))
             # print(type(gray_roi))
-            print(roi.shape)
+#             print(roi.shape)
             # print(gray_roi.shape)
-
-            plt.imshow(roi)
-            plt.imshow(gray_roi)
+  
             plt.imsave("C:/Users/Ezgi/Desktop/resim.png",gray_roi)
             pred = model.predict(np.array([gray_roi]))
             # cv2.putText()
             # cv2.putText(img, label, (x, y + 30), font, 3, color, 2)
 
             pred = np.argmax(pred, axis=1)
-            # Get the class label with highest probability
-            # Convert the class index to class label
-            # class_label = labels[class_index]
+            print("prediction: ",labels['Name'][int(pred)])
+            
             # Define the position of the class label text
-            text_x, text_y = x + w - 100, y
+            text_x, text_y = x + w - 120, y+3
 
             # Add the class label text to the image
             cv2.putText(img, labels['Name'][int(pred)], (text_x, text_y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-
-            # # Display the image
-            # cv2.imshow("Image with class label", img)
-            # cv2.waitKey(0)
-            # cv2.destroyAllWindows()
             pred = None
 
     cv2.imshow("Image", img)
