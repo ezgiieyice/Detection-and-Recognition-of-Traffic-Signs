@@ -7,5 +7,5 @@ To run project, you should dowloand trained  models [here] (https://drive.google
 
 Some Results
 
-[](RESULT_1.png)
+[](https://github.com/ezgiieyice/detection-and-recognition-of-TS/blob/main/RESULT_1.png)
 
