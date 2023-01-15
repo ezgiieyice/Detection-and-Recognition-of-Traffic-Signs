@@ -7,5 +7,5 @@ To run project, you should dowloand trained  models [here] (https://drive.google
 
 Some Results
 
-[](result_1.png)
+[](RESULT_1.png)
 
