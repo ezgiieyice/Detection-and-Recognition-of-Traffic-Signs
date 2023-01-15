@@ -9,5 +9,7 @@ Some Results
 
 <img src="https://github.com/ezgiieyice/detection-and-recognition-of-TS/blob/main/RESULT_1.png" width="auto">
 
+<img src="https://github.com/ezgiieyice/detection-and-recognition-of-TS/blob/main/RESULT_2.png" width="auto">
+
 
 
